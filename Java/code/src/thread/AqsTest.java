@@ -3,10 +3,17 @@ package thread;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.IntStream;
 
+/**
+ * AqsTest class
+ *
+ * @author yujinchun
+ * @date 2020/12/19
+ */
 public class AqsTest {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 //        conditionTest();
         cyclicBarrierTest();
     }
@@ -14,10 +21,9 @@ public class AqsTest {
     private static void conditionTest() throws InterruptedException {
         ReentrantLock lock = new ReentrantLock();
         Condition condition = lock.newCondition();
-
-        new Thread(()->{
+        IntStream.range(1, 2).forEach(x -> new Thread(() -> {
+            lock.lock();
             try {
-                lock.lock();
                 condition.await();
                 System.out.println(Thread.currentThread().getId());
             } catch (Exception e) {
@@ -25,23 +31,11 @@ public class AqsTest {
             } finally {
                 lock.unlock();
             }
-        });
-
-        new Thread(()->{
-            try {
-                lock.lock();
-                condition.await();
-                System.out.println(Thread.currentThread().getId());
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
-            }
-        });
+        }));
 
         Thread.sleep(1000L);
+        lock.lock();
         try {
-            lock.lock();
             System.out.println("release lock starting");
             condition.signalAll();
         } catch (Exception e) {
@@ -52,17 +46,11 @@ public class AqsTest {
     }
 
 
-    private static void cyclicBarrierTest(){
+    private static void cyclicBarrierTest() {
         int threadNum = 5;
-        CyclicBarrier barrier = new CyclicBarrier(threadNum, new Runnable() {
+        CyclicBarrier barrier = new CyclicBarrier(threadNum, () -> System.out.println(Thread.currentThread().getName() + " 完成最后任务"));
 
-            @Override
-            public void run() {
-                System.out.println(Thread.currentThread().getName() + " 完成最后任务");
-            }
-        });
-
-        for(int i = 0; i < threadNum; i++) {
+        for (int i = 0; i < threadNum; i++) {
             new TaskThread(barrier).start();
         }
     }

@@ -2,7 +2,7 @@ package designpartterns.singleton;
 
 public class InnerClass {
 
-    public InnerClass() {
+    private InnerClass() {
     }
 
     private static class InnerClassHolder {
