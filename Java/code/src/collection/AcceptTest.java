@@ -9,11 +9,9 @@ public class AcceptTest {
     }
 
     public static void foreachTest() {
-        ArrayList<Integer> list = new ArrayList<Integer>() {{
-            add(1);
-            add(2);
-        }};
-
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
         list.forEach(System.out::println);
     }
 
