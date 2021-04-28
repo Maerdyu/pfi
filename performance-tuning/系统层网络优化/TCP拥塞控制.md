@@ -16,13 +16,13 @@
 
   因此，你可以根据网络状况和传输对象的大小，调整初始拥塞窗口的大小。调整前，先要清楚你的服务器现在的初始拥塞窗口是多大。你可以通过 ss 命令查看当前拥塞窗口：
 
-  > # ss -nli|fgrep cwnd
-
-  >          cubic rto:1000 mss:536 cwnd:10 segs_in:10621866 lastsnd:1716864402 lastrcv:1716864402 lastack:1716864402
+  > \# ss -nli|fgrep cwnd
+  > 
+  > cubic rto:1000 mss:536 cwnd:10 segs_in:10621866 lastsnd:1716864402 lastrcv:1716864402 lastack:1716864402
 
   >再通过 ip route change 命令修改初始拥塞窗口
   >
-  ># ip route | while read r; do
+  > \# ip route | while read r; do
   >           ip route change $r initcwnd 10;
   >       done
 
