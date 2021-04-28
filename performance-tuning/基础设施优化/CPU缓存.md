@@ -86,7 +86,7 @@ array[0][0]，array[1][0]，array[0][1]，array[1][1]
 
 关于 CPU Cache Line 的应用其实非常广泛，如果你用过 Nginx，会发现它是用哈希表来存放域名、HTTP 头部等数据的，这样访问速度非常快，而哈希表里桶的大小如 server_names_hash_bucket_size，它默认就等于 CPU Cache Line 的值。由于所存放的字符串长度不能大于桶的大小，所以当需要存放更长的字符串时，就需要修改桶大小，但 Nginx 官网上明确建议它应该是 CPU Cache Line 的整数倍。
 
-![nginx_cpu_cacheline](resource/nginx_cpu_cacheline.png)
+![nginx_cpu_cacheline](resource/CPU_nginx_cpu_cacheline.png)
 
 为什么要做这样的要求呢？就是因为按照 cpu cache line（比如 64 字节）来访问内存时，不会出现多核 CPU 下的伪共享问题，可以**尽量减少访问内存的次数**。比如，若桶大小为 64 字节，那么根据地址获取字符串时只需要访问一次内存，而桶大小为 50 字节，会导致最坏 2 次访问内存，而 70 字节最坏会有 3 次访问内存。
 
@@ -130,9 +130,9 @@ sort(array, array +N);
 
 下图是我在 GitHub 上为你准备的验证程序执行的 perf 分支预测统计数据（代码见[这里](https://github.com/russelltao/geektime_distrib_perf/tree/master/1-cpu_cache/branch_predict)），你可以看到，先排序的话分支预测的成功率非常高，而且一级指令缓存的未命中率也有大幅下降。
 
-![perf1](resource/perf1.png)
+![perf1](resource/CPU_perf1.png)
 
-![perf2](resource/perf2.png)
+![perf2](resource/CPU_perf2.png)
 
 C/C++ 语言中编译器还给应用程序员提供了显式预测分支概率的工具，如果 if 中的条件表达式判断为“真”的概率非常高，我们可以用 likely 宏把它括在里面，反之则可以用 unlikely 宏。当然，CPU 自身的条件预测已经非常准了，仅当我们确信 CPU 条件预测不会准，且我们能够知晓实际概率时，才需要加入这两个宏。
 
