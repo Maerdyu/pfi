@@ -2,21 +2,43 @@
 
 
 
-## 1：Java
-
-
+## Java
 
 ### JDK
-
-[集合](Java/JDK/Collection/introduce)
-
-### 线程
-
+- [集合，线程安全和非安全](Java/JDK/Collection/introduce)
+### JVM
+### 多线程
 
 
-## 2：性能优化
+## 常用中间件和技能
+### MySQL
+### Redis
+### MQ
 
-### 基础设施优化
+### 消息通信(Netty)
+### 性能优化，调优
 
-[CPU缓存](performance-tuning/基础设施优化/1、CPU缓存：怎样写代码能够让CPU执行得更快.md)
+
+
+
+## 理论基础
+
+### 数据结构、算法
+### 设计模式
+### 计算机原理
+### 操作系统
+
+## 框架和微服务
+### Spring SpringBoot SpringCloud
+### Dubbo
+### 分布式
+- 分库分表(Shareding JDBC）
+- 分布式事务(seata)
+### K8S(云原生)
+
+## 其他技术
+
+### go/python
+### 虚拟化/KVM
+
 
