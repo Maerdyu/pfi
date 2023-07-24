@@ -5,7 +5,7 @@
 ## Java
 
 ### JDK
-- [集合，线程安全和非安全](Java/JDK/Collection/introduce)
+- [集合，线程安全和非安全](java/jdk/Collection/introduce)
 ### JVM
 ### 多线程
 
