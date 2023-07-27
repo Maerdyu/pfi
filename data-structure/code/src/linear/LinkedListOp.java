@@ -4,7 +4,7 @@ package linear;
  *  链表可简单分成 单链表、循环链表、双向链表
  *
  */
-public class LinkListOp {
+public class LinkedListOp {
 
     // 单链表结构
     public static class SingleNode {
