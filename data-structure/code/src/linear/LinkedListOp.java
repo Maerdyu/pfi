@@ -1,5 +1,7 @@
 package linear;
 
+import java.util.LinkedList;
+
 /**
  *  链表可简单分成 单链表、循环链表、双向链表
  *
